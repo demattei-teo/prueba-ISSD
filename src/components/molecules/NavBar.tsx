@@ -37,29 +37,40 @@ function NavBar({ className, changeState }: NavBarProps) {
         <Item className=''>
           <Link
             className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
-            href='/agregar-carrera'
+            href='/modificar-carrera'
           >
             <IconEdit className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
-            Agregar Carrera
+            Modificar Carrera
           </Link>
         </Item>
         <Item className=''>
           <Link
             className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
-            href='/agregar-carrera'
+            href='#'
           >
             <IconSave className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
-            Agregar Carrera
+            Guardar Carrera
           </Link>
         </Item>
-        {router === '/agregar-carrera' && '/modificar-carrera' && (
+        {router === '/agregar-carrera' && (
           <Item className=''>
             <Link
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
-              href='/agregar-carrera'
+              href='/'
             >
               <IconUniversity className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
-              Consultar Planes
+              Ver Carreras
+            </Link>
+          </Item>
+        )}
+        {router === '/modificar-carrera' && (
+          <Item className=''>
+            <Link
+              className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
+              href='/'
+            >
+              <IconUniversity className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+              Ver Carreras
             </Link>
           </Item>
         )}
@@ -71,6 +82,17 @@ function NavBar({ className, changeState }: NavBarProps) {
             >
               <IconEye className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
               Consultar Materias
+            </Link>
+          </Item>
+        )}
+        {router === '/' && (
+          <Item className=''>
+            <Link
+              className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
+              href='/agregar-carrera'
+            >
+              <IconEye className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+              Consultar Planes
             </Link>
           </Item>
         )}
