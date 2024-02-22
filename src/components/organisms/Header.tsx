@@ -12,7 +12,7 @@ function Header() {
 
   const styles = {
     navbar: clsx(
-      'w-full z-30 fixed flex flex-col content-start gap-20 p-4 inset-y-0 left-0 transform translate-x-0 transition-transform duration-300 ease-in-out lg:relative lg:w-auto lg:translate-x-0 bg-white lg:p-0 lg:flex-row',
+      'w-full z-30 fixed flex flex-col content-start gap-20 p-4 inset-y-0 left-0 transform translate-x-0 transition-transform duration-300 ease-in-out lg:relative lg:w-auto lg:translate-x-0 lg:p-0 lg:flex-row',
       !state && 'translate-x-[100%]'
     )
   }
