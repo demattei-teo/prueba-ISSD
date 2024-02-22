@@ -1,5 +1,7 @@
+import { Form } from '@/components'
+
 function Home() {
-  return <h1>Hello</h1>
+  return <Form title='Prueba' className='' />
 }
 
 export default Home
