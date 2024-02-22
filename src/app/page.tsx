@@ -1,7 +1,7 @@
-import { Form } from '@/components'
+import { Table } from '@/components'
 
 function Home() {
-  return <Form title='Prueba' className='' />
+  return <Table />
 }
 
 export default Home
