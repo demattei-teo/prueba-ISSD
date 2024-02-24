@@ -16,7 +16,7 @@ interface GlobalProviderData {
 const GlobalProvider = ({ children }: Props): JSX.Element => {
   const [getCareer, setGetCareer] = useState<GlobalProviderData>({
     name: '',
-    state: 'active',
+    state: 'activo',
     code: 1
   })
   function getCareerCode(number: number) {

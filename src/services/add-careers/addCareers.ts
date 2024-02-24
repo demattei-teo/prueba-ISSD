@@ -1,6 +1,4 @@
-'use client'
-
-import { addDoc, collection } from 'firebase/firestore'
+import { DocumentData, DocumentReference, addDoc, collection } from 'firebase/firestore'
 import { db } from '../config/firebase'
 
 interface NewData {
@@ -9,15 +7,10 @@ interface NewData {
   code: number
 }
 
-async function addData(newData: NewData): Promise<void> {
-  addDoc(collection(db, 'careers'), newData)
-    .then(() => {
-      console.log('Document successfully written!')
-      window.location.href = '/'
-    })
-    .catch((error) => {
-      console.error('Error writing document: ', error)
-    })
+async function addData(newData: NewData): Promise<DocumentReference<DocumentData, DocumentData>> {
+  const response = await addDoc(collection(db, 'careers'), newData)
+
+  return response
 }
 
 export default addData
