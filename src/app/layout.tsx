@@ -1,4 +1,5 @@
 import { Header } from '@/components'
+import { GlobalProvider } from '@/context/global/globalProvider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -18,8 +19,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <Header />
-        <main className='min-h-[80vh] px-4 flex flex-col items-center justify-center'>{children}</main>
+        <GlobalProvider>
+          <Header />
+          <main className='min-h-[80vh] px-4 flex flex-col items-center justify-center'>{children}</main>
+        </GlobalProvider>
       </body>
     </html>
   )

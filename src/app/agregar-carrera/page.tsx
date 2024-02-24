@@ -1,7 +1,7 @@
-import { Form } from '@/components'
+import { FormAddCareer } from '@/components'
 
 function Page() {
-  return <Form title='Agregar Carrera' className='' />
+  return <FormAddCareer />
 }
 
 export default Page
