@@ -14,14 +14,14 @@ interface NavBarProps {
 }
 
 function NavBar({ className, changeState }: NavBarProps) {
-  const { name, state, code } = useGlobalProvider()
-
+  const { name, state, code, setGetCareer } = useGlobalProvider()
   const pathname = usePathname()
   const router = useRouter()
   const pushNewCareer = async () => {
     await toast.promise(addData({ name, state, code }), {
       loading: 'Enviando carrera',
       success: () => {
+        setGetCareer({ name: '', state: 'activo', code: 0 })
         setTimeout(() => {
           router.push('/')
         }, 2000)
@@ -67,10 +67,20 @@ function NavBar({ className, changeState }: NavBarProps) {
         {pathname === '/agregar-carrera' && (
           <Item className=''>
             <Buttons
-              onClick={async () => await pushNewCareer()}
-              className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
+              disabled={name.length === 0 && true}
+              onClick={async () => {
+                if (name !== '') {
+                  await pushNewCareer()
+                } else {
+                  toast.error('Ingresa un nombre de carrera')
+                }
+              }}
+              className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3 group disabled:text-gray-200'
             >
-              <IconSave className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+              <IconSave
+                disabled={name.length === 0 && true}
+                className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200'
+              />
               Guardar carrera
             </Buttons>
           </Item>
@@ -78,8 +88,14 @@ function NavBar({ className, changeState }: NavBarProps) {
 
         {pathname === '/modificar-carrera' && (
           <Item className=''>
-            <Buttons className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'>
-              <IconSave className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+            <Buttons
+              disabled={name.length === 0 && true}
+              className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3 disabled:text-gray-200'
+            >
+              <IconSave
+                disabled={name.length === 0 && true}
+                className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200'
+              />
               Guardar carrera
             </Buttons>
           </Item>

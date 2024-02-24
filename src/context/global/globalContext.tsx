@@ -1,4 +1,5 @@
-import { ChangeEventHandler, createContext } from 'react'
+import { careers } from '@/models/careers'
+import { ChangeEventHandler, Dispatch, SetStateAction, createContext } from 'react'
 
 export interface GlobalContextProps {
   name: string
@@ -6,6 +7,7 @@ export interface GlobalContextProps {
   code: number
   getNewCareer: ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
   getCareerCode: (number: number) => void
+  setGetCareer: Dispatch<SetStateAction<careers>>
 }
 
 const GlobalContext = createContext<GlobalContextProps>({
@@ -13,7 +15,8 @@ const GlobalContext = createContext<GlobalContextProps>({
   state: 'activo',
   code: 1,
   getNewCareer: () => {},
-  getCareerCode: () => {}
+  getCareerCode: () => {},
+  setGetCareer: () => {}
 })
 
 export { GlobalContext }
