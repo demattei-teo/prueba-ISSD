@@ -1,6 +1,10 @@
+'use client'
+
+import { useGlobalProvider } from '@/hooks/useGloblalProvider'
+import addData from '@/services/add-careers/addCareers'
 import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
-import { IconClose, IconEdit, IconEye, IconPlus, IconSave, IconUniversity, Item, Link, List, Title } from '..'
+import { Buttons, IconClose, IconEdit, IconEye, IconPlus, IconSave, IconUniversity, Item, Link, List, Title } from '..'
 import Button from '../atoms/Buttons'
 
 interface NavBarProps {
@@ -9,11 +13,13 @@ interface NavBarProps {
 }
 
 function NavBar({ className, changeState }: NavBarProps) {
+  const { name, state, code } = useGlobalProvider()
+
   const router = usePathname()
   const styles = {
     navbar: clsx('h-screen lg:h-auto  bg-sky-500 text-white', className)
   }
-  console.log(router)
+
   return (
     <nav className={styles.navbar}>
       <div className='flex justify-between gap-7 items-center lg:hidden'>
@@ -43,15 +49,27 @@ function NavBar({ className, changeState }: NavBarProps) {
             Modificar Carrera
           </Link>
         </Item>
-        <Item className=''>
-          <Link
-            className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
-            href='#'
-          >
-            <IconSave className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
-            Guardar Carrera
-          </Link>
-        </Item>
+        {router === '/agregar-carrera' && (
+          <Item className=''>
+            <Buttons
+              onClick={async () => await addData({ name, state, code })}
+              className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
+            >
+              <IconSave className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+              Guardar carrera
+            </Buttons>
+          </Item>
+        )}
+
+        {router === '/modificar-carrera' && (
+          <Item className=''>
+            <Buttons className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'>
+              <IconSave className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+              Guardar carrera
+            </Buttons>
+          </Item>
+        )}
+
         {router === '/agregar-carrera' && (
           <Item className=''>
             <Link
@@ -63,6 +81,7 @@ function NavBar({ className, changeState }: NavBarProps) {
             </Link>
           </Item>
         )}
+
         {router === '/modificar-carrera' && (
           <Item className=''>
             <Link
@@ -74,6 +93,7 @@ function NavBar({ className, changeState }: NavBarProps) {
             </Link>
           </Item>
         )}
+
         {router === '/' && (
           <Item className=''>
             <Link
@@ -85,6 +105,7 @@ function NavBar({ className, changeState }: NavBarProps) {
             </Link>
           </Item>
         )}
+
         {router === '/' && (
           <Item className=''>
             <Link

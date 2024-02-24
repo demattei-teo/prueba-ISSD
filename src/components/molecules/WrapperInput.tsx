@@ -1,34 +1,19 @@
 import clsx from 'clsx'
-import { Input, Select } from '..'
 
 interface WrapperInputProps {
-  type: 'input' | 'select'
   className?: string
-  classNameInput?: string
-  classNameSelect?: string
-  typeInput: string
-  placeholderInput: string
   contentLabel: string
+  children: React.ReactNode
 }
 
-function WrapperInput({
-  contentLabel,
-  className,
-  classNameInput,
-  typeInput,
-  placeholderInput,
-  classNameSelect,
-  type
-}: WrapperInputProps) {
+function WrapperInput({ contentLabel, className, children }: WrapperInputProps) {
   const style = {
-    wrapper: clsx('flex flex-col gap-3', className),
-    input: clsx('p-1.5 rounded-md border', classNameInput)
+    wrapper: clsx('flex flex-col gap-3', className)
   }
   return (
     <div className={style.wrapper}>
       <label className=''>{contentLabel}</label>
-      {type === 'input' && <Input type={typeInput} className={style.input} placeholder={placeholderInput} />}
-      {type === 'select' && <Select className={classNameSelect} options={['Activa', 'Inactiva']} />}
+      {children}
     </div>
   )
 }
