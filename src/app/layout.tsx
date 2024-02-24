@@ -2,6 +2,7 @@ import { Header } from '@/components'
 import { GlobalProvider } from '@/context/global/globalProvider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <GlobalProvider>
+          <Toaster position='bottom-right' />
           <Header />
           <main className='min-h-[80vh] px-4 flex flex-col items-center justify-center'>{children}</main>
         </GlobalProvider>

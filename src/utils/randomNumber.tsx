@@ -7,7 +7,6 @@ export async function generateRandomNumber() {
   let randomNumber = Math.floor(Math.random() * 100)
 
   const codeCareers = collectionRef.docs.map((doc) => doc.data().code)
-
   while (codeCareers.includes(randomNumber)) {
     randomNumber = Math.floor(Math.random() * 100)
   }

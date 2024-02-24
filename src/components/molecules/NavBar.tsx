@@ -3,7 +3,8 @@
 import { useGlobalProvider } from '@/hooks/useGloblalProvider'
 import addData from '@/services/add-careers/addCareers'
 import clsx from 'clsx'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { Buttons, IconClose, IconEdit, IconEye, IconPlus, IconSave, IconUniversity, Item, Link, List, Title } from '..'
 import Button from '../atoms/Buttons'
 
@@ -15,7 +16,21 @@ interface NavBarProps {
 function NavBar({ className, changeState }: NavBarProps) {
   const { name, state, code } = useGlobalProvider()
 
-  const router = usePathname()
+  const pathname = usePathname()
+  const router = useRouter()
+  const pushNewCareer = async () => {
+    await toast.promise(addData({ name, state, code }), {
+      loading: 'Enviando carrera',
+      success: () => {
+        setTimeout(() => {
+          router.push('/')
+        }, 2000)
+        return '¡Carrera enviada con exito!'
+      },
+      error: '¡Ocurrió un error al enviar la carrera! Intenta de nuevo por favor.'
+    })
+  }
+
   const styles = {
     navbar: clsx('h-screen lg:h-auto  bg-sky-500 text-white', className)
   }
@@ -49,10 +64,10 @@ function NavBar({ className, changeState }: NavBarProps) {
             Modificar Carrera
           </Link>
         </Item>
-        {router === '/agregar-carrera' && (
+        {pathname === '/agregar-carrera' && (
           <Item className=''>
             <Buttons
-              onClick={async () => await addData({ name, state, code })}
+              onClick={async () => await pushNewCareer()}
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
             >
               <IconSave className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
@@ -61,7 +76,7 @@ function NavBar({ className, changeState }: NavBarProps) {
           </Item>
         )}
 
-        {router === '/modificar-carrera' && (
+        {pathname === '/modificar-carrera' && (
           <Item className=''>
             <Buttons className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'>
               <IconSave className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
@@ -70,7 +85,7 @@ function NavBar({ className, changeState }: NavBarProps) {
           </Item>
         )}
 
-        {router === '/agregar-carrera' && (
+        {pathname === '/agregar-carrera' && (
           <Item className=''>
             <Link
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
@@ -82,7 +97,7 @@ function NavBar({ className, changeState }: NavBarProps) {
           </Item>
         )}
 
-        {router === '/modificar-carrera' && (
+        {pathname === '/modificar-carrera' && (
           <Item className=''>
             <Link
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
@@ -94,7 +109,7 @@ function NavBar({ className, changeState }: NavBarProps) {
           </Item>
         )}
 
-        {router === '/' && (
+        {pathname === '/' && (
           <Item className=''>
             <Link
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
@@ -106,7 +121,7 @@ function NavBar({ className, changeState }: NavBarProps) {
           </Item>
         )}
 
-        {router === '/' && (
+        {pathname === '/' && (
           <Item className=''>
             <Link
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'

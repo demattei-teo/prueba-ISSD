@@ -10,7 +10,7 @@ export interface GlobalContextProps {
 
 const GlobalContext = createContext<GlobalContextProps>({
   name: '',
-  state: 'active',
+  state: 'activo',
   code: 1,
   getNewCareer: () => {},
   getCareerCode: () => {}
