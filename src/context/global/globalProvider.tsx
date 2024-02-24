@@ -1,5 +1,6 @@
 'use client'
 
+import { careers } from '@/models/careers'
 import { useState } from 'react'
 import { GlobalContext, GlobalContextProps } from './globalContext'
 
@@ -7,14 +8,8 @@ interface Props {
   children: React.ReactNode
 }
 
-interface GlobalProviderData {
-  name: string
-  state: string
-  code: number
-}
-
 const GlobalProvider = ({ children }: Props): JSX.Element => {
-  const [getCareer, setGetCareer] = useState<GlobalProviderData>({
+  const [getCareer, setGetCareer] = useState<careers>({
     name: '',
     state: 'activo',
     code: 1
@@ -33,7 +28,8 @@ const GlobalProvider = ({ children }: Props): JSX.Element => {
     state: getCareer.state,
     code: getCareer.code,
     getNewCareer,
-    getCareerCode
+    getCareerCode,
+    setGetCareer
   }
 
   return <GlobalContext.Provider value={data}>{children}</GlobalContext.Provider>
