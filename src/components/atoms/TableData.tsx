@@ -6,7 +6,7 @@ interface TableDataProps {
 }
 
 function TableData({ className, children }: TableDataProps) {
-  const style = clsx(' p-6', className)
+  const style = clsx('align-middle p-6', className)
   return <td className={style}>{children}</td>
 }
 

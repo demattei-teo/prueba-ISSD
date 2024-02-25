@@ -128,10 +128,10 @@ function NavBar({ className, changeState }: NavBarProps) {
         {pathname === '/' && (
           <Item className=''>
             <Link
-              className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
+              className='flex group text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
               href='/agregar-carrera'
             >
-              <IconEye className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+              <IconEye className='fill-gray-200 transition-colors ease-linear duration-200' />
               Consultar Materias
             </Link>
           </Item>
@@ -140,10 +140,10 @@ function NavBar({ className, changeState }: NavBarProps) {
         {pathname === '/' && (
           <Item className=''>
             <Link
-              className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
+              className='flex group text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
               href='/agregar-carrera'
             >
-              <IconEye className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+              <IconEye className='fill-gray-200 transition-colors ease-linear duration-200' />
               Consultar Planes
             </Link>
           </Item>
