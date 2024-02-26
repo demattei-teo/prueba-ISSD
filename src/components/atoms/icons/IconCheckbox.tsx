@@ -9,7 +9,7 @@ function IconCheckbox() {
         height='18.2703'
         rx='5.28877'
         stroke='#D0D5DD'
-        stroke-width='0.961594'
+        strokeWidth='0.961594'
       />
     </svg>
   )

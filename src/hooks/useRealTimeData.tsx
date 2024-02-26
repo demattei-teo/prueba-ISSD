@@ -10,7 +10,6 @@ function useRealTimeData() {
     const q = query(collection(db, 'careers'))
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const careers = querySnapshot.docs.map((doc) => doc.data())
-      console.log(careers)
       setStateCareers(careers)
       setIsLoading(false)
     })
