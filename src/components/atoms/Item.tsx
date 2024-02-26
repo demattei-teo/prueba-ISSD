@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { MouseEventHandler } from 'react'
 import { Link } from '..'
 
 interface ItemProps {
@@ -6,12 +7,13 @@ interface ItemProps {
   isLinked?: string
   children?: React.ReactNode
   contentLink?: string
+  onclick?: MouseEventHandler<HTMLLIElement>
 }
-function Item({ className, isLinked, children, contentLink }: ItemProps) {
+function Item({ className, isLinked, children, contentLink, onclick }: ItemProps) {
   const itemtyle = clsx('', className)
 
   return (
-    <li className={itemtyle}>
+    <li className={itemtyle} onClick={onclick}>
       {isLinked && (
         <Link className={className} href={isLinked}>
           {contentLink}

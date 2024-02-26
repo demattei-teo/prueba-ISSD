@@ -15,7 +15,7 @@ interface NavBarProps {
 }
 
 function NavBar({ className, changeState }: NavBarProps) {
-  const { name, modificateName, modificateState, state, code, setGetCareer, id, modificateId, setModificateCareer } =
+  const { name, modificateName, modificateState, state, code, setGetCareer, modificateId, setModificateCareer } =
     useGlobalProvider()
   const pathname = usePathname()
   const router = useRouter()
@@ -52,11 +52,11 @@ function NavBar({ className, changeState }: NavBarProps) {
     navbar: clsx('h-screen lg:h-auto  bg-sky-500 text-white', className),
     desabledLink: clsx(
       'flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3',
-      id === '' && 'pointer-events-none text-gray-200'
+      modificateId === '' && 'pointer-events-none text-gray-200'
     ),
     desabledIcon: clsx(
       'fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200',
-      id === '' && 'fill-gray-200'
+      modificateId === '' && 'fill-gray-300'
     )
   }
 
@@ -71,7 +71,7 @@ function NavBar({ className, changeState }: NavBarProps) {
         </Button>
       </div>
       <List className='flex flex-col gap-6 lg:flex-row'>
-        <Item className=''>
+        <Item className='' onclick={() => changeState(false)}>
           <Link
             className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
             href='/agregar-carrera'
@@ -81,7 +81,7 @@ function NavBar({ className, changeState }: NavBarProps) {
           </Link>
         </Item>
 
-        <Item className=''>
+        <Item className='' onclick={() => modificateId !== '' && changeState(false)}>
           <Link className={styles.desabledLink} href='/modificar-carrera'>
             <IconEdit className={styles.desabledIcon} />
             Modificar Carrera
@@ -133,7 +133,7 @@ function NavBar({ className, changeState }: NavBarProps) {
         )}
 
         {pathname === '/agregar-carrera' && (
-          <Item className=''>
+          <Item className='' onclick={() => changeState(false)}>
             <Link
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
               href='/'
@@ -145,7 +145,7 @@ function NavBar({ className, changeState }: NavBarProps) {
         )}
 
         {pathname === '/modificar-carrera' && (
-          <Item className=''>
+          <Item className='' onclick={() => changeState(false)}>
             <Link
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
               href='/'
@@ -159,7 +159,7 @@ function NavBar({ className, changeState }: NavBarProps) {
         {pathname === '/' && (
           <Item className=''>
             <Link
-              className='flex group text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
+              className='flex group text-gray-200 transition-colors ease-linear duration-200 items-center gap-3 pointer-events-none'
               href='/agregar-carrera'
             >
               <IconEye className='fill-gray-200 transition-colors ease-linear duration-200' />
@@ -171,7 +171,7 @@ function NavBar({ className, changeState }: NavBarProps) {
         {pathname === '/' && (
           <Item className=''>
             <Link
-              className='flex group text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
+              className='flex group text-gray-200 transition-colors ease-linear duration-200 items-center gap-3 pointer-events-none'
               href='/agregar-carrera'
             >
               <IconEye className='fill-gray-200 transition-colors ease-linear duration-200' />

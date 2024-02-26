@@ -9,14 +9,14 @@ function IconCheckboxRef() {
         height='18.2703'
         rx='5.28877'
         stroke='#0070FF'
-        stroke-width='0.961594'
+        strokeWidth='0.961594'
       />
       <path
         d='M5.80547 10.4181H13.6585'
         stroke='#0070FF'
-        stroke-width='1.92319'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.92319'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   )

@@ -16,9 +16,9 @@ interface TableProps {
 function Table({ className }: TableProps) {
   const [filter, setFilter] = useState<string>('')
   const [filterCareers, setFilterCareers] = useState<DocumentData[]>([])
-  const [stateChecked, setStateCheked] = useState<number>(-1)
+  const { setGetCareer, setModificateCareer, modificateId } = useGlobalProvider()
+  const [stateChecked, setStateCheked] = useState(modificateId)
   const { stateCareers, isLoading } = useRealTimeData()
-  const { setGetCareer, setModificateCareer } = useGlobalProvider()
 
   const getValue = (value: string) => {
     setFilter(value)
@@ -49,14 +49,14 @@ function Table({ className }: TableProps) {
                   code: 0,
                   id: ''
                 })
-                setStateCheked(-1)
+                setStateCheked('')
               }}
             >
               <IconCheckboxRef />
             </Buttons>
           </span>
           <span className={style.span}>Codigo</span>
-          <span className={style.span}>Nombre</span>
+          <span className={`${style.span} text-left`}>Nombre</span>
           <span className={style.span}>Estado</span>
           <span className={style.span}>Acciones</span>
         </li>
@@ -69,15 +69,15 @@ function Table({ className }: TableProps) {
                   <Buttons
                     onClick={() => {
                       setGetCareer({ name: careers.name, state: careers.state, code: careers.code, id: careers.id })
-                      setStateCheked(index)
+                      setStateCheked(careers.id)
                     }}
                   >
-                    {stateChecked === index && <IconChecked />}
-                    {stateChecked !== index && <IconCheckbox />}
+                    {stateChecked === careers.id && <IconChecked />}
+                    {stateChecked !== careers.id && <IconCheckbox />}
                   </Buttons>
                 </span>
                 <span className={style.span}>{careers.code}</span>
-                <span className={style.span}>{careers.name}</span>
+                <span className={`${style.span} text-left`}>{careers.name}</span>
                 <span className={style.span}>{careers.state}</span>
                 <span className={style.span}>
                   <Button
@@ -106,15 +106,16 @@ function Table({ className }: TableProps) {
                         code: careers.code,
                         id: careers.id
                       })
-                      setStateCheked(index)
+                      setStateCheked(careers.id)
                     }}
                   >
-                    {stateChecked === index && <IconChecked />}
-                    {stateChecked !== index && <IconCheckbox />}
+                    {stateChecked === careers.id && <IconChecked />}
+
+                    {stateChecked !== careers.id && <IconCheckbox />}
                   </Buttons>
                 </span>
                 <span className={style.span}>{careers.code}</span>
-                <span className={style.span}>{careers.name}</span>
+                <span className={`${style.span} text-left`}>{careers.name}</span>
                 <span className={style.span}>{careers.state}</span>
                 <span className={style.span}>
                   <Button

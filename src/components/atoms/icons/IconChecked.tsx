@@ -9,14 +9,14 @@ function IconChecked() {
         height='18.2703'
         rx='5.28877'
         stroke='#0070FF'
-        stroke-width='0.961594'
+        strokeWidth='0.961594'
       />
       <path
         d='M14.2207 6.36264L8.05045 12.5329L5.2458 9.72822'
         stroke='white'
-        stroke-width='1.92319'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeWidth='1.92319'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       />
     </svg>
   )
