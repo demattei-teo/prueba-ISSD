@@ -14,12 +14,27 @@ const GlobalProvider = ({ children }: Props): JSX.Element => {
     state: 'activo',
     code: 1
   })
+
+  const [modificateCareer, setModificateCareer] = useState<careers>({
+    name: '',
+    state: 'activo',
+    code: 1,
+    id: ''
+  })
+
   function getCareerCode(number: number) {
     setGetCareer((prevDate) => ({ ...prevDate, code: number }))
   }
 
+  function modificateCareerData(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { name } = event.target
+
+    setModificateCareer((prevDate) => ({ ...prevDate, [name]: event.target.value }))
+  }
+
   function getNewCareer(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name } = event.target
+
     setGetCareer((prevDate) => ({ ...prevDate, [name]: event.target.value }))
   }
 
@@ -27,9 +42,16 @@ const GlobalProvider = ({ children }: Props): JSX.Element => {
     name: getCareer.name,
     state: getCareer.state,
     code: getCareer.code,
+    id: getCareer.id,
+    modificateName: modificateCareer.name,
+    modificateState: modificateCareer.state,
+    modificateCode: modificateCareer.code,
+    modificateId: modificateCareer.id,
     getNewCareer,
     getCareerCode,
-    setGetCareer
+    modificateCareerData,
+    setGetCareer,
+    setModificateCareer
   }
 
   return <GlobalContext.Provider value={data}>{children}</GlobalContext.Provider>

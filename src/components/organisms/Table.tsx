@@ -4,9 +4,10 @@ import deleteDocument from '@/services/deleteCareer.ts/deleteCareer'
 import clsx from 'clsx'
 import { DocumentData } from 'firebase/firestore'
 
+import { useGlobalProvider } from '@/hooks/useGloblalProvider'
 import useRealTimeData from '@/hooks/useRealTimeData'
 import { useState } from 'react'
-import { List, Search } from '..'
+import { Buttons, IconCheckbox, IconCheckboxRef, IconChecked, List, Search } from '..'
 import Button from '../atoms/Buttons'
 interface TableProps {
   className?: string
@@ -15,7 +16,9 @@ interface TableProps {
 function Table({ className }: TableProps) {
   const [filter, setFilter] = useState<string>('')
   const [filterCareers, setFilterCareers] = useState<DocumentData[]>([])
+  const [stateChecked, setStateCheked] = useState<number>(-1)
   const { stateCareers, isLoading } = useRealTimeData()
+  const { setGetCareer, setModificateCareer } = useGlobalProvider()
 
   const getValue = (value: string) => {
     setFilter(value)
@@ -25,8 +28,8 @@ function Table({ className }: TableProps) {
   const style = {
     list: clsx('sm:w-full border-collapse text-center flex flex-col justify-between gap-5 min-w-[500px]', className),
     li: clsx('w-full flex justify-between gap-5 p-2'),
-    head: clsx('w-full flex justify-between gap-5 p-2 bg-gray-200'),
-    span: clsx('w-[7.5rem]')
+    head: clsx('w-full flex justify-between gap-5 p-2 bg-gray-100'),
+    span: clsx('w-[7.5rem] flex items-center ')
   }
 
   if (isLoading) return <p>Loading...</p>
@@ -36,16 +39,43 @@ function Table({ className }: TableProps) {
       {stateCareers.length >= 10 && <Search getValue={getValue} />}
       <List className={style.list}>
         <li className={style.head}>
+          <span className={`${style.span} flex justify-center`}>
+            <Buttons
+              className=''
+              onClick={() => {
+                setModificateCareer({
+                  name: '',
+                  state: 'activo',
+                  code: 0,
+                  id: ''
+                })
+                setStateCheked(-1)
+              }}
+            >
+              <IconCheckboxRef />
+            </Buttons>
+          </span>
           <span className={style.span}>Codigo</span>
           <span className={style.span}>Nombre</span>
           <span className={style.span}>Estado</span>
-          <span className={style.span}>Eliminar Carrera</span>
+          <span className={style.span}>Acciones</span>
         </li>
 
         {filter !== '' &&
           filterCareers.map((careers, index) => {
             return (
               <li key={index} className={style.li}>
+                <span className={`${style.span} flex items-center justify-center`}>
+                  <Buttons
+                    onClick={() => {
+                      setGetCareer({ name: careers.name, state: careers.state, code: careers.code, id: careers.id })
+                      setStateCheked(index)
+                    }}
+                  >
+                    {stateChecked === index && <IconChecked />}
+                    {stateChecked !== index && <IconCheckbox />}
+                  </Buttons>
+                </span>
                 <span className={style.span}>{careers.code}</span>
                 <span className={style.span}>{careers.name}</span>
                 <span className={style.span}>{careers.state}</span>
@@ -66,6 +96,23 @@ function Table({ className }: TableProps) {
           stateCareers.map((careers, index) => {
             return (
               <li key={index} className={style.li}>
+                <span className={`${style.span} flex items-center justify-center`}>
+                  <Buttons
+                    className=''
+                    onClick={() => {
+                      setModificateCareer({
+                        name: careers.name,
+                        state: careers.state,
+                        code: careers.code,
+                        id: careers.id
+                      })
+                      setStateCheked(index)
+                    }}
+                  >
+                    {stateChecked === index && <IconChecked />}
+                    {stateChecked !== index && <IconCheckbox />}
+                  </Buttons>
+                </span>
                 <span className={style.span}>{careers.code}</span>
                 <span className={style.span}>{careers.name}</span>
                 <span className={style.span}>{careers.state}</span>
