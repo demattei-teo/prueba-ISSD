@@ -2,6 +2,7 @@
 
 import { useGlobalProvider } from '@/hooks/useGloblalProvider'
 import addData from '@/services/add-careers/addCareers'
+import updateCareer from '@/services/upDate-career/updateCareer'
 import clsx from 'clsx'
 import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
@@ -14,9 +15,11 @@ interface NavBarProps {
 }
 
 function NavBar({ className, changeState }: NavBarProps) {
-  const { name, state, code, setGetCareer } = useGlobalProvider()
+  const { name, modificateName, modificateState, state, code, setGetCareer, id, modificateId, setModificateCareer } =
+    useGlobalProvider()
   const pathname = usePathname()
   const router = useRouter()
+
   const pushNewCareer = async () => {
     await toast.promise(addData({ name, state, code }), {
       loading: 'Enviando carrera',
@@ -31,8 +34,30 @@ function NavBar({ className, changeState }: NavBarProps) {
     })
   }
 
+  const pushUpdateCareer = async () => {
+    await toast.promise(updateCareer({ id: modificateId, name: modificateName, state: modificateState }), {
+      loading: 'Actualizando carrera',
+      success: () => {
+        setModificateCareer({ name: '', state: 'activo', code: 0 })
+        setTimeout(() => {
+          router.push('/')
+        }, 2000)
+        return '¡Carrera actualizada con exito!'
+      },
+      error: '¡Ocurrió un error al actualizar la carrera! Intenta de nuevo por favor.'
+    })
+  }
+
   const styles = {
-    navbar: clsx('h-screen lg:h-auto  bg-sky-500 text-white', className)
+    navbar: clsx('h-screen lg:h-auto  bg-sky-500 text-white', className),
+    desabledLink: clsx(
+      'flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3',
+      id === '' && 'pointer-events-none text-gray-200'
+    ),
+    desabledIcon: clsx(
+      'fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200',
+      id === '' && 'fill-gray-200'
+    )
   }
 
   return (
@@ -55,15 +80,14 @@ function NavBar({ className, changeState }: NavBarProps) {
             Agregar Carrera
           </Link>
         </Item>
+
         <Item className=''>
-          <Link
-            className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3'
-            href='/modificar-carrera'
-          >
-            <IconEdit className='fill-white group-hover:fill-gray-200 transition-colors ease-linear duration-200' />
+          <Link className={styles.desabledLink} href='/modificar-carrera'>
+            <IconEdit className={styles.desabledIcon} />
             Modificar Carrera
           </Link>
         </Item>
+
         {pathname === '/agregar-carrera' && (
           <Item className=''>
             <Buttons
@@ -89,7 +113,14 @@ function NavBar({ className, changeState }: NavBarProps) {
         {pathname === '/modificar-carrera' && (
           <Item className=''>
             <Buttons
-              disabled={name.length === 0 && true}
+              onClick={async () => {
+                if (modificateName !== '') {
+                  await pushUpdateCareer()
+                } else {
+                  toast.error('Ingresa un nombre de carrera')
+                }
+              }}
+              disabled={modificateName.length === 0 && true}
               className='flex group hover:text-gray-200 transition-colors ease-linear duration-200 items-center gap-3 disabled:text-gray-200'
             >
               <IconSave
